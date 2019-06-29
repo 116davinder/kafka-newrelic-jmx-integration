@@ -1,0 +1,36 @@
+collect:
+    - domain: kafka.cluster
+      event_type: kafkaMonitoring
+      beans:
+          - query: type=Partition,name=UnderReplicated,partition=*,topic=*
+
+    - domain: kafka.controller
+      event_type: kafkaMonitoring
+      beans:
+          - query: type=*,name=*
+
+    - domain: kafka.log
+      event_type: kafkaMonitoring
+      beans:
+          - query: type=Log,name=*
+          - query: type=LogFlushStats,name=LogFlushRateAndTimeMs
+
+    - domain: kafka.network
+      event_type: kafkaMonitoring
+      beans:
+          - query: type=RequestMetrics,name=*
+          - query: type=RequestChannel,name=*
+          - query: type=SocketServer,name=NetworkProcessorAvgIdlePercent
+
+    - domain: kafka.server
+      event_type: kafkaMonitoring
+      beans:
+          - query: type=ReplicaManager,name=*
+          - query: type=DelayedOperationPurgatory,name=*
+          - query: type=BrokerTopicMetrics,name=*
+          - query: type=KafkaRequestHandlerPool,name=RequestHandlerAvgIdlePercent
+
+    - domain: kafka.utils
+      event_type: kafkaMonitoring
+      beans:
+          - query: type=*,name=*

@@ -1,0 +1,31 @@
+collect:
+# Standard JVM Metrics
+    - domain: java.lang
+      event_type: kafkaMonitoring
+      beans:
+          - query: type=GarbageCollector,name=*
+            attributes:
+                - CollectionCount
+                - CollectionTime
+                - LastGcInfo
+          - query: type=Memory
+            attributes:
+                - HeapMemoryUsage.Committed
+                - HeapMemoryUsage.Init
+                - HeapMemoryUsage.Max
+                - HeapMemoryUsage.Used
+                - NonHeapMemoryUsage.Committed
+                - NonHeapMemoryUsage.Init
+                - NonHeapMemoryUsage.Max
+                - NonHeapMemoryUsage.Used
+          - query: type=Threading
+            attributes:
+                - ThreadCount
+                - TotalStartedThreadCount
+                - PeakThreadCount
+          - query: type=ClassLoading
+            attributes:
+                - LoadedClassCount
+          - query: type=Compilation
+            attributes:
+                - TotalCompilationTime
