@@ -3,7 +3,7 @@
 This is a ansible role which will install newrelic infra jmx plugin and add kafka jmx configs to specified hosts. 
 ```
 ## Cautions
-1. It will generate atleast half million events per 1min if cluster size is 3.
+1. It can generate atleast half million events per 1min if cluster size is 3.
 
 ## Assumptions
 ```
@@ -59,39 +59,45 @@ collect:
 ## Following Stats for Kafka
 ```
 collect:
-    - domain: kafka.cluster
-      event_type: kafkaMonitoring
-      beans:
-          - query: type=Partition,name=UnderReplicated,partition=*,topic=*
 
     - domain: kafka.controller
       event_type: kafkaMonitoring
       beans:
-          - query: type=*,name=*
+          - query: type=KafkaController,name=OfflinePartitionsCount
+          - query: type=KafkaController,name=ActiveControllerCount
+          - query: type=ControllerStats,name=LeaderElectionRateAndTimeMs
+          - query: type=ControllerStats,name=UncleanLeaderElectionsPerSec
 
     - domain: kafka.log
       event_type: kafkaMonitoring
       beans:
-          - query: type=Log,name=*
           - query: type=LogFlushStats,name=LogFlushRateAndTimeMs
 
     - domain: kafka.network
       event_type: kafkaMonitoring
       beans:
-          - query: type=RequestMetrics,name=*
-          - query: type=RequestChannel,name=*
           - query: type=SocketServer,name=NetworkProcessorAvgIdlePercent
+          - query: type=RequestChannel,name=RequestQueueSize
+          - query: type=RequestMetrics,name=TotalTimeMs,request=*
+          - query: type=RequestMetrics,name=RequestQueueTimeMs,request=*
+          - query: type=RequestMetrics,name=LocalTimeMs,request=*
+          - query: type=RequestMetrics,name=RemoteTimeMs,request=*
+          - query: type=RequestMetrics,name=ResponseQueueTimeMs,request=*
+          - query: type=RequestMetrics,name=ResponseSendTimeMs,request=*
 
     - domain: kafka.server
       event_type: kafkaMonitoring
       beans:
-          - query: type=ReplicaManager,name=*
-          - query: type=DelayedOperationPurgatory,name=*
-          - query: type=BrokerTopicMetrics,name=*
-          - query: type=KafkaRequestHandlerPool,name=RequestHandlerAvgIdlePercent
+          - query: type=*,name=*
+          - query: type=ReplicaFetcherManager,name=MaxLag,clientId=Replica
+          - query: type=FetcherLagMetrics,name=ConsumerLag,clientId=*,topic=*,partition=*
+          - query: type=DelayedOperationPurgatory,name=PurgatorySize,delayedOperation=*
 
     - domain: kafka.utils
       event_type: kafkaMonitoring
       beans:
           - query: type=*,name=*
 ```
+
+## Ref:
+*  https://docs.confluent.io/current/kafka/monitoring.html
