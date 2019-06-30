@@ -7,7 +7,8 @@ This is a ansible role which will install newrelic infra jmx plugin and add kafk
 
 ## Assumptions
 ```
-NewRelic Infra Agent should be already installed and version should be higher than 1.3.x.
+1. Production Ready Kafka Installation (https://github.com/116davinder/kafka-cluster-ansible )
+2. NewRelic Infra Agent should be already installed and version should be higher than 1.3.x.
 ```
 
 ## Requirements
