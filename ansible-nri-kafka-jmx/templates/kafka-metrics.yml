@@ -33,6 +33,7 @@ collect:
           - query: type=ReplicaFetcherManager,name=MaxLag,clientId=Replica
           - query: type=FetcherLagMetrics,name=ConsumerLag,clientId=*,topic=*,partition=*
           - query: type=DelayedOperationPurgatory,name=PurgatorySize,delayedOperation=*
+          - query: type=KafkaServer,name=*
 
     - domain: kafka.utils
       event_type: kafkaMonitoring
