@@ -1,3 +1,5 @@
+**This repo is Not Required as latest code will be maintained in https://github.com/116davinder/kafka-cluster-ansible/tree/master/roles/nri-kafka**
+
 # Apache Kafka NewRelic Integration
 ```
 This is a ansible role which will install newrelic infra jmx plugin and add kafka jmx configs to specified hosts. 
